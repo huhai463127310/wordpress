@@ -159,6 +159,8 @@ RUN set -eux; \
 	chmod -R 1777 wp-content
 
 VOLUME /var/www/html
+VOLUME /usr/local/etc/php
+VOLUME /etc/apache2
 
 COPY --chown=www-data:www-data wp-config-docker.php /usr/src/wordpress/
 COPY docker-entrypoint.sh /usr/local/bin/
