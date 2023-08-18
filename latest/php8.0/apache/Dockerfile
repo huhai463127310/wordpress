@@ -158,7 +158,11 @@ RUN set -eux; \
 	chown -R www-data:www-data wp-content; \
 	chmod -R 1777 wp-content
 
+RUN mkdir -p /var/www/data
+RUN mkdir -p /var/www/logs
 VOLUME /var/www/html
+VOLUME /var/www/data
+VOLUME /var/www/logs
 VOLUME /usr/local/etc/php
 VOLUME /etc/apache2
 
