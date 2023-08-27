@@ -166,6 +166,16 @@ VOLUME /var/www/logs
 VOLUME /usr/local/etc/php
 VOLUME /etc/apache2
 
+RUN cd /usr/local/src && \
+	curl -L -o phpredis-5.3.7.tar.gz https://github.com/phpredis/phpredis/archive/refs/tags/5.3.7.tar.gz && \
+	tar xzf phpredis-5.3.7.tar.gz && rm phpredis-5.3.7.tar.gz &&\
+	cd phpredis-5.3.7 && \
+	/usr/local/bin/phpize && \
+	./configure --with-php-config=/usr/local/bin/php-config && \
+	make && make install && \
+	echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini && \
+	cd /usr/local/src && rm -rf  phpredis-5.3.7
+
 COPY --chown=www-data:www-data wp-config-docker.php /usr/src/wordpress/
 COPY docker-entrypoint.sh /usr/local/bin/
 
